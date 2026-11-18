@@ -1,0 +1,17 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-sunnylea-0af9f62a-fd2f-4c3d-96b0-649fb0832abc",
+      "rules": "firestore.rules"
+    }
+  ],
+  "emulators": {
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8085
+    },
+    "ui": {
+      "enabled": false
+    }
+  }
+}

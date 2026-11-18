@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SunnyLearn</string>
+    <string name="nav_today">Today</string>
+    <string name="nav_subjects">Subjects</string>
+    <string name="nav_routine">Routine</string>
+    <string name="nav_badges">Badges</string>
+    <string name="sign_in_google">Sign in with Google</string>
+    <string name="sign_out">Sign Out</string>
+</resources>

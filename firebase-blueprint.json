@@ -1,0 +1,182 @@
+{
+  "entities": {
+    "RoutineItem": {
+      "title": "RoutineItem",
+      "description": "A daily timetable routine activity created by the child or parent for holiday scheduling.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Activity title, 1 to 60 characters."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["STUDY", "READING", "CREATIVE", "PLAY", "CHORES", "REST"],
+          "description": "Routine category tag."
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Optional linked subject ID (or empty string if none)."
+        },
+        "startMinutes": {
+          "type": "integer",
+          "description": "Start time in minutes from midnight (0 to 1439)."
+        },
+        "durationMinutes": {
+          "type": "integer",
+          "description": "Duration in minutes (5 to 480)."
+        },
+        "daysOfWeek": {
+          "type": "array",
+          "description": "ISO days of week (1=Monday..7=Sunday) when this routine applies."
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional short note or reminder, up to 160 characters."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "category",
+        "subjectId",
+        "startMinutes",
+        "durationMinutes",
+        "daysOfWeek",
+        "note",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "RoutineLog": {
+      "title": "RoutineLog",
+      "description": "Daily completion record for a routine item on a specific yyyy-MM-dd date.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "routineId": {
+          "type": "string",
+          "description": "Referenced RoutineItem document ID."
+        },
+        "dateKey": {
+          "type": "string",
+          "description": "Local date string in yyyy-MM-dd format."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the routine block was completed on this date."
+        },
+        "starsEarned": {
+          "type": "integer",
+          "description": "Stars awarded for this check-in (0 to 20)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update."
+        }
+      },
+      "required": [
+        "userId",
+        "routineId",
+        "dateKey",
+        "completed",
+        "starsEarned",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LessonProgress": {
+      "title": "LessonProgress",
+      "description": "Completed holiday subject lesson progress and quiz score for a user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Subject identifier (e.g. math, science)."
+        },
+        "lessonId": {
+          "type": "string",
+          "description": "Lesson identifier (e.g. math_1)."
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the lesson quiz has been completed."
+        },
+        "bestScore": {
+          "type": "integer",
+          "description": "Best quiz score achieved (0 to 10)."
+        },
+        "totalQuestions": {
+          "type": "integer",
+          "description": "Total quiz questions in the lesson (1 to 10)."
+        },
+        "starsEarned": {
+          "type": "integer",
+          "description": "Total stars earned from this lesson (0 to 50)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update."
+        }
+      },
+      "required": [
+        "userId",
+        "subjectId",
+        "lessonId",
+        "completed",
+        "bestScore",
+        "totalQuestions",
+        "starsEarned",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/routines/{routineId}": {
+      "schema": { "$ref": "#/entities/RoutineItem" },
+      "description": "User-scoped daily timetable routine blocks."
+    },
+    "/users/{userId}/routineLogs/{logId}": {
+      "schema": { "$ref": "#/entities/RoutineLog" },
+      "description": "Date-keyed completion check-ins for daily routine blocks."
+    },
+    "/users/{userId}/lessonProgress/{lessonDocId}": {
+      "schema": { "$ref": "#/entities/LessonProgress" },
+      "description": "Per-lesson learning progress, best quiz scores, and stars earned."
+    }
+  }
+}

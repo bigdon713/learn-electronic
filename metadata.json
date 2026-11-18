@@ -1,0 +1,6 @@
+{
+  "name": "SunnyLearn",
+  "description": "A holiday learning and daily timetable routine app for children to explore subjects, complete interactive lessons and quizzes, and organize their daily holiday schedule.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
